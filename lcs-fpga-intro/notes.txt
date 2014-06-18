@@ -1,0 +1,61 @@
+= What is hardware; how does it differ from software?
+
+== Software
+
+Logically:
+- Abstract/high-level view of the HW, even in assembly/machine code
+- Sequential sequence of instructions
+- HW fetches 1 instruction at a time
+- Evaluates/executes it
+- Writes results back to registers/RAM
+- HW functional units used one at a time
+- Must explicitly write extra code to get parallelism
+
+== Hardware
+
+- A set of separate circuits (blocks) which all operate in parallel
+- (Otherwise known as combinatorial logic)
+- Any state storage, synchronization, or sequential execution must be
+  explicitly coded
+- Both the actual storage, and the mechanism to update the storage
+- (Otherwise known as sequential logic)
+
+= What are FPGAs
+
+- A given HW circuit usually implements a single logical function
+- Perhaps a complex one if it's a state machine
+  but hard-coded by the design/layout/connectivity of the HW nonetheless.
+- Consider an AND or OR gate: these always calculate the AND/OR function.
+- DEMO: Show AND/OR schematic symbols and truth tables in kicad.
+- Circuits can be constructed that allow some inputs to specify which
+  function to calculate on other inputs.
+- e.g. lay down circuits for each possible fucntion and then select whic
+  sub-circuit output becomes the overall output using a mux.
+- inefficient but works
+- DEMO: Show AND/OR/mux schematic symbol and truth table in kicad.
+- In practice, use an SRAM as a lookup table
+
+An FPGA consists of:
+- Many repetitions of configurable circuits like above (slices)
+- Configurable routing logic to connect all the slices
+- Configuration logic to set up all the muxes/lookup tables/routing at power on
+- Various IO pins that signals can be routed to/from
+- Perhaps various fixed-function logic
+- ...
+
+= How do you create the configuration that defines the FPGA?
+
+- Manually create a schematic just like you would when designing a PCB
+- Doesn't scale that well
+- Write "code" in an HDL such as Verilog (common in US) or VHDL (common
+  in Europe)
+
+= Verilog
+
+- Xilinx ISE
+- Walk through a couple of simple Verilog examples
+- Simulation
+
+= DEMO
+
+- Pong running in an FPGA
