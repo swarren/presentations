@@ -29,7 +29,7 @@ Logically:
 - DEMO: Show AND/OR schematic symbols and truth tables in kicad.
 - Circuits can be constructed that allow some inputs to specify which
   function to calculate on other inputs.
-- e.g. lay down circuits for each possible fucntion and then select whic
+- e.g. lay down circuits for each possible function and then select which
   sub-circuit output becomes the overall output using a mux.
 - inefficient but works
 - DEMO: Show AND/OR/mux schematic symbol and truth table in kicad.
