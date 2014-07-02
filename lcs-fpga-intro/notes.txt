@@ -8,7 +8,7 @@ Logically:
 - HW fetches 1 instruction at a time
 - Evaluates/executes it
 - Writes results back to registers/RAM
-- HW functional units used one at a time
+- HW functional units used one at a time or with limited overlap
 - Must explicitly write extra code to get parallelism
 
 == Hardware

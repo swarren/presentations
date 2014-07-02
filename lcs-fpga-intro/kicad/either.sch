@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sat 30 Nov 2013 10:56:57 PM MST
+EESchema Schematic File Version 2
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,13 +30,13 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:gates-ex1-cache
-EELAYER 25  0
+EELAYER 27 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
 encoding utf-8
 Sheet 1 4
 Title ""
-Date "1 dec 2013"
+Date "29 jun 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -52,6 +52,8 @@ U 1 1 5203026B
 P 1650 800
 F 0 "U3" H 1650 850 60  0000 C CNN
 F 1 "74LS08" H 1650 750 60  0000 C CNN
+F 2 "" H 1650 800 60  0001 C CNN
+F 3 "" H 1650 800 60  0001 C CNN
 	1    1650 800 
 	1    0    0    -1  
 $EndComp
@@ -61,6 +63,8 @@ U 1 1 5203026A
 P 1650 1700
 F 0 "U5" H 1650 1750 60  0000 C CNN
 F 1 "74LS32" H 1650 1650 60  0000 C CNN
+F 2 "" H 1650 1700 60  0001 C CNN
+F 3 "" H 1650 1700 60  0001 C CNN
 	1    1650 1700
 	1    0    0    -1  
 $EndComp
@@ -74,6 +78,8 @@ U 1 1 52030269
 P 2850 900
 F 0 "U4" H 2850 950 60  0000 C CNN
 F 1 "74LS08" H 2850 850 60  0000 C CNN
+F 2 "" H 2850 900 60  0001 C CNN
+F 3 "" H 2850 900 60  0001 C CNN
 	1    2850 900 
 	1    0    0    -1  
 $EndComp
@@ -83,6 +89,8 @@ U 1 1 52030268
 P 2850 1600
 F 0 "U6" H 2850 1650 60  0000 C CNN
 F 1 "74LS08" H 2850 1550 60  0000 C CNN
+F 2 "" H 2850 1600 60  0001 C CNN
+F 3 "" H 2850 1600 60  0001 C CNN
 	1    2850 1600
 	1    0    0    -1  
 $EndComp
@@ -92,6 +100,8 @@ U 1 1 52030267
 P 1500 1200
 F 0 "U7" H 1650 1300 40  0000 C CNN
 F 1 "74HC04" H 1700 1100 40  0000 C CNN
+F 2 "" H 1500 1200 60  0001 C CNN
+F 3 "" H 1500 1200 60  0001 C CNN
 	1    1500 1200
 	1    0    0    -1  
 $EndComp
@@ -101,6 +111,8 @@ U 1 1 52030266
 P 4050 1250
 F 0 "U8" H 4050 1300 60  0000 C CNN
 F 1 "74LS32" H 4050 1200 60  0000 C CNN
+F 2 "" H 4050 1250 60  0001 C CNN
+F 3 "" H 4050 1250 60  0001 C CNN
 	1    4050 1250
 	1    0    0    -1  
 $EndComp
