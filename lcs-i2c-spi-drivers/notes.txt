@@ -1,0 +1,48 @@
+Is there a driver already?
+Often many devices with different names but the same register layouts...
+If so, query it from user space scripts
+light-check.py
+
+User-space or kernel space driver?
+
+User-space:
+Simpler to write and test
+
+User-space MMIO:
+Not as portable
+Security issues (needs root: can access everything)
+reg{rd,wr}.c
+
+User-space I2C:
+Well-defined permanent ABI with good feature set
+Via device files
+hih6130.c
+
+User-space SPI:
+Similar to user-space I2C, although not quite as flexible
+
+User-space USB:
+libusb etc. e.g. libconcord
+
+Kernel-space:
+- Need a device
+- Need a driver
+- Need to bind them together
+
+Device:
+A device is data. It has resources. It represents one instance.
+
+Board files:	arch/arm/mach-ep93xx/core.c (search for ep93xx_rtc_device)
+PCI:		bus scanning
+USB:		bus scanning
+ACPI:		...
+DT:		arch/arm/boot/dts/tegra124-venice2.dts (search for audio-codec@10)
+
+Drivers:
+A driver implements behaviour. There's one driver for all devices of a type.
+
+MMIO:	sound/soc/tegra/tegra30_i2s.c
+I2C: 	sound/soc/codecs/wm8903.c
+PCI:	drivers/net/ethernet/realtek/r8169.c
+
+(show MODULE_DEVICE_TABLE, struct {platform,i2c,pci}_driver, match tables, probe())
