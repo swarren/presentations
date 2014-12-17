@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="77" height="77" xmlns="http://www.w3.org/2000/svg">
+<g font-size="18px" font-family="Times New Roman">
+<text y="34">B</text><text x="64" y="17">C</text><text x="64" y="74">E</text></g>
+<g stroke="#000" stroke-width="3.6" fill="none">
+<path d="m56,2v14L36,30m0,16l20,14v14M6,38H34.3m0-17v34m1.4,0V21M46,56l3-4 4,6zM14,37a28,28 0 1,1 0,2"/>
+</g></svg>
