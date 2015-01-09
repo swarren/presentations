@@ -1,0 +1,179 @@
+= Content
+
+- What is binary?
+- Review of base 10
+- Base 2 (binary)
+- Base 10 math
+- Base 2 math
+
+= What is binary?
+
+Just another way of representing numbers.
+
+The numbers are the same. Math works the same. It's just the way we translate
+it to writing is different to our familiar base 10.
+
+= Base 10 recap
+
+Uses digits 0..9; note that 9 is 10-1
+
+Right-most column is number of units
+Next column is number of tens
+Next column is number of hundreds etc
+Next column is number of thousands
+
+2495 is:
+   5 * 1's (units)
+  9 * 10's (tens)
+ 4 * 100's (hundreds)
+2 * 1000's (thousands)
+... all added together
+
+Pattern is that columns are:
+..., 100000, 10000, 1000, 100, 10, 1
+
+Written in exponential notation, that's:
+..., 10^5, 10^4, 10^3, 10^2, 10^1, 10^0
+
+The value in column n represents the number of 10^n in the overall value.
+
+= Binary
+
+Base 2
+
+Uses digits 0..1.
+
+Columns represent powers of 2: ..., 16, 8, 4, 2, 1
+
+1101 represents:
+   1 * 1's or units
+  0 * 2's
+ 1 * 4's
+1 * 8's
+
+So equal to 13 in base 10.
+
+= Number bases in general
+
+The pattern is /exactly/ the same for any number base.
+
+Base b uses digits 0..(b-1)
+
+Columns represent ..., b^3, b^2, b^1, b^0
+
+pqrs is:
+   s * b^0
+  r * b^1
+ q * b^2
+p * b^3
+
+We can write numbers with a suffix subscript to indicate which base they're
+written in: 2495_10, 1011_2.
+
+Decimal (base 10) is what humans typically use.
+
+Binary (base 2) is what electronic circuits typically use.
+
+Octal (base 8) and Hexadecimal (hex, base 16) often used in computing.
+
+Hex uses digits 0..9, a..f. That's just 16 slightly arbitrary characters
+for the digits.
+
+= Why is binary useful?
+
+Just two states, so it's simpler.
+
+A 0 can be represented by an electrical signal that's at ground (0v, off, or low).
+
+A 1 can be represented by an electrical signal that's at a high voltage (e.g. 5v).
+
+Very easy to turn things "on" or "off" in electronics!
+
+So, binary values map to electronics very easily.
+
+= Base 2 -> integer conversion
+
+Simply convert the number to a base-10 expression, and add it up:
+
+1011
+
+(1 * 8) + (0 * 4) + (1 * 2) + (1 * 1) = 11
+
+= Integer -> base 2 conversion algorithm
+
+Find the largest power-of-2 that isn't larger than the base 10 number
+
+While the power-of-2 is >= 1:
+  If the power-of-2 is <= the number:
+    Next binary digit is 1
+    (Right left-to-right)
+    Subtract power-of-2 from the number
+  Else:
+    Next binary digit is 0
+  Divide the power of 2 by 2
+
+= Integer -> base 2 conversion example
+
+Start with 21
+Choose power-of-2 of 16
+21 >= 16, so emit binary digit 1
+Number is now 21 - 16 = 5
+Next power-of-2 is 8
+5 < 8, so emit binary digit 0
+Next power-of-2 is 4
+5 >= 4, so emit binary digit 1
+Number is now 5 - 4 = 1
+Next power-of-2 is 2
+1 < 2, so emit binary digit 0
+Next power-of-2 is 1
+1 >= 1, so emit binary digit 1
+Number is now 1 - 1 = 0
+There is no next power-of-2 is 1
+
+Written left-to-right, that is 10101.
+
+= Base 10 addition recap
+
+Show base 10 addition without carry
+
+  1 2 3 4
++ 2 3 4 5
+---------
+= 3 5 7 9
+
+Show base 10 addition with carry
+(when sum is too large to represent in a single digit)
+
+  1 2 3 4
++ 2 3 8 5
+---------
+= 3 6 1 9
+
+= Base 2 addition
+
+Show base 2 addition without carry
+
+  1 0 1 0 (10_10)
++ 0 0 0 1 ( 5_10)
+---------
+= 1 0 1 1 (15_10)
+
+Show base 2 addition with carry
+
+  1 0 1 0 (10_10)
++ 0 0 1 1 ( 3_10)
+---------
+= 1 1 0 1 (13_10)
+
+
+
+TODO:
+
+Mention Bytes, words, etc. Simply that a certain number of bits are commonly
+used for the representation.
+
+Negative numbers
+
+1's complement
+
+2's complement
