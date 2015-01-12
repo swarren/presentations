@@ -1506,7 +1506,7 @@ These are standard SMD and PTH capacitors. Normally 10uF, 47uF, and 100uF in ele
 <part name="R3" library="SparkFun-Passives" deviceset="RESISTOR" device="PTH-1/2W" value="10000"/>
 <part name="R4" library="SparkFun-Passives" deviceset="RESISTOR" device="PTH-1/2W" value="10000"/>
 <part name="VDD3" library="supply1" deviceset="VDD" device=""/>
-<part name="C1" library="SparkFun-Passives" deviceset="CAP_POL" device="PTH4" value="10000"/>
+<part name="C1" library="SparkFun-Passives" deviceset="CAP_POL" device="PTH4" value="220"/>
 </parts>
 <sheets>
 <sheet>
@@ -1546,7 +1546,7 @@ These are standard SMD and PTH capacitors. Normally 10uF, 47uF, and 100uF in ele
 <instance part="VDD3" gate="G$1" x="20.32" y="88.9"/>
 <instance part="C1" gate="G$1" x="27.94" y="60.96" smashed="yes" rot="R270">
 <attribute name="NAME" x="22.606" y="58.293" size="1.778" layer="95"/>
-<attribute name="VALUE" x="23.876" y="64.389" size="1.778" layer="96"/>
+<attribute name="VALUE" x="25.4" y="64.135" size="1.778" layer="96"/>
 </instance>
 </instances>
 <busses>
@@ -1635,6 +1635,7 @@ These are standard SMD and PTH capacitors. Normally 10uF, 47uF, and 100uF in ele
 <wire x1="20.32" y1="60.96" x2="20.32" y2="73.66" width="0.1524" layer="91"/>
 <wire x1="20.32" y1="60.96" x2="22.86" y2="60.96" width="0.1524" layer="91"/>
 <junction x="20.32" y="60.96"/>
+<pinref part="C1" gate="G$1" pin="-"/>
 </segment>
 </net>
 </nets>

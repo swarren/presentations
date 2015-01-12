@@ -1506,8 +1506,8 @@ These are standard SMD and PTH capacitors. Normally 10uF, 47uF, and 100uF in ele
 <part name="R3" library="SparkFun-Passives" deviceset="RESISTOR" device="PTH-1/2W" value="10000"/>
 <part name="R4" library="SparkFun-Passives" deviceset="RESISTOR" device="PTH-1/2W" value="10000"/>
 <part name="VDD3" library="supply1" deviceset="VDD" device=""/>
-<part name="C1" library="SparkFun-Passives" deviceset="CAP_POL" device="PTH4" value="10000"/>
-<part name="C2" library="SparkFun-Passives" deviceset="CAP_POL" device="PTH4" value="10000"/>
+<part name="C1" library="SparkFun-Passives" deviceset="CAP_POL" device="PTH4" value="220"/>
+<part name="C2" library="SparkFun-Passives" deviceset="CAP_POL" device="PTH4" value="220"/>
 <part name="VDD4" library="supply1" deviceset="VDD" device=""/>
 </parts>
 <sheets>
@@ -1548,11 +1548,11 @@ These are standard SMD and PTH capacitors. Normally 10uF, 47uF, and 100uF in ele
 <instance part="VDD3" gate="G$1" x="20.32" y="88.9"/>
 <instance part="C1" gate="G$1" x="27.94" y="60.96" smashed="yes" rot="R270">
 <attribute name="NAME" x="22.606" y="58.293" size="1.778" layer="95"/>
-<attribute name="VALUE" x="23.622" y="63.881" size="1.778" layer="96"/>
+<attribute name="VALUE" x="25.146" y="63.881" size="1.778" layer="96"/>
 </instance>
 <instance part="C2" gate="G$1" x="2.54" y="60.96" smashed="yes" rot="R90">
 <attribute name="NAME" x="5.08" y="58.293" size="1.778" layer="95" rot="R180" align="top-right"/>
-<attribute name="VALUE" x="6.35" y="65.405" size="1.778" layer="96" rot="R180" align="top-left"/>
+<attribute name="VALUE" x="4.826" y="65.659" size="1.778" layer="96" rot="R180"/>
 </instance>
 <instance part="VDD4" gate="G$1" x="10.16" y="88.9"/>
 </instances>

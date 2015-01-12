@@ -565,7 +565,7 @@ polygon.l254 {fill:#808080; }
 <path class='l94' d='M 26.085800,-58.470800 A 4.054200 4.054200 0 0 0 26.940000,-60.960000' style='stroke-width:0.254000; stroke-linecap:butt'/>
 <path class='l94' d='M 26.923900,-60.960000 A 4.063700 4.063700 0 0 0 26.089600,-63.426900' style='stroke-width:0.254000; stroke-linecap:butt'/>
 <text class='l95' x='22.606000' y='-58.293000' style='font-size:1.955800pt;'>C1</text>
-<text class='l96' x='23.622000' y='-63.881000' style='font-size:1.955800pt;'>10000</text>
+<text class='l96' x='25.146000' y='-63.881000' style='font-size:1.955800pt;'>220</text>
 </g>
 <g><title>PART C2</title>
 <rect class='l94' x='1.364000' y='-59.215000' width='0.889000' height='0.127000' transform='rotate(-90.000000,1.808500,-59.151500)'/>
@@ -577,7 +577,7 @@ polygon.l254 {fill:#808080; }
 <path class='l94' d='M 4.394200,-63.449200 A 4.054200 4.054200 0 0 0 3.540000,-60.960000' style='stroke-width:0.254000; stroke-linecap:butt'/>
 <path class='l94' d='M 3.556100,-60.960000 A 4.063700 4.063700 0 0 0 4.390400,-58.493100' style='stroke-width:0.254000; stroke-linecap:butt'/>
 <text class='l95' x='5.080000' y='-56.515000' style='font-size:1.955800pt; text-anchor:end;'>C2</text>
-<text class='l96' x='6.350000' y='-63.627000' style='font-size:1.955800pt; text-anchor:end;'>10000</text>
+<text class='l96' x='4.826000' y='-63.881000' style='font-size:1.955800pt; text-anchor:end;'>220</text>
 </g>
 <g><title>PART GND1</title>
 <line class='l94' x1='35.560000' y1='-45.720000' x2='35.560000' y2='-43.180000' style='stroke-width:0.152400; stroke-linecap:round'/>
