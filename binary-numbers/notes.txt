@@ -10,6 +10,12 @@
 
 Just another way of representing numbers.
 
+Some common examples how we represent numbers:
+- Base 10; how humans write numbers.
+- Fingers.
+- Tally marks.
+- Roman numerals.
+
 The numbers are the same. Math works the same. It's just the way we translate
 it to writing is different to our familiar base 10.
 
@@ -83,13 +89,15 @@ for the digits.
 
 Just two states, so it's simpler.
 
-A 0 can be represented by an electrical signal that's at ground (0v, off, or low).
+A 0 can be represented by an electrical signal that's at ground (0v, off, or
+low).
 
-A 1 can be represented by an electrical signal that's at a high voltage (e.g. 5v).
+A 1 can be represented by an electrical signal that's at a high voltage (e.g.
+5v, on, or high).
 
 Very easy to turn things "on" or "off" in electronics!
 
-So, binary values map to electronics very easily.
+So, binary values map to electronic circuits/signals very easily.
 
 = Base 2 -> integer conversion
 
@@ -154,9 +162,9 @@ Show base 10 addition with carry
 Show base 2 addition without carry
 
   1 0 1 0 (10_10)
-+ 0 0 0 1 ( 5_10)
++ 0 0 0 1 ( 1_10)
 ---------
-= 1 0 1 1 (15_10)
+= 1 0 1 1 (11_10)
 
 Show base 2 addition with carry
 
@@ -165,15 +173,150 @@ Show base 2 addition with carry
 ---------
 = 1 1 0 1 (13_10)
 
+= Magnitude limits in computers
 
+Humans doing math can simply write more columns/digits if needed for large
+numbers.
 
-TODO:
+Computer circuits use a fixed number of wires for math. Common sizes are
+8, 16, or 32 wires/signals. This imposes a limit on the largest number
+than can be represented.
 
-Mention Bytes, words, etc. Simply that a certain number of bits are commonly
-used for the representation.
+Each wire represents 1 binary digit, commonly called a bit.
 
-Negative numbers
+4 bits make a nibble.
 
-1's complement
+8 bits make a byte.
 
-2's complement
+= Overflow in binary
+
+Assume a circuit with 4 wires (signals, bits).
+
+The largest number we can represent is 1111_2 == 15_10.
+
+We'll calculate 9 + 9 == 18 (decimal).
+
+    1 0 0 1
++   1 0 0 1
+-----------
+= 1 0 0 1 0
+
+Too large to fit into 4 bits!
+
+Computers just throw away the bits they have no space for.
+
+So, the result is 0010_2 not 10010_2. That's 2_10 not 18_10!
+
+This effect is called overflow.
+
+Choose your data types carefully; Many computer languages don't detect or
+report when this occurs!
+
+= Overflow in base 10
+
+Overflow isn't unique to base 10; it can happen in any base. Possibility for
+overflow is imposed by a limit on the number of digits.
+
+Assume we can only use 2 decimal digits.
+
+Let's add 80 + 80:
+
+    8 0
++   8 0
+-------
+= 1 6 0
+
+Limited to 2 digits, that's 60 not 160; it overflowed.
+
+= Unsigned number magnitude range
+
+0 is the smallest number we can represent.
+
+All ones is the largest number we can represent.
+
+If we have n bits, that's 2^n-1.
+(2^n is the value of the first digit beyond the nth, and the value of that
+bit is one more than the largest value n bits can represent.)
+
+For example, 4 bits is 0..15.
+
+= Subtraction
+
+We can exploit overflow to do subtraction though!
+
+a - b = s
+
+is equivalent to:
+
+a + (-b) = s
+
+To work out how to represent negative numbers, we need to find the number
+we can add (with overflow) to get the same result as subtraction.
+
+7 - 3 = 4
+
+7 + (-3) = 4
+
+By experimentation we can find:
+
+    0 1 1 1  7_10
++   1 1 0 1 -3_10
+-----------
+= 1 0 1 0 0
+
+Limited to 4 bits, that's 0100 == 4_10.
+
+= Negative number representation
+
+Observe:
+
+a + (-a) = 0
+
+Observe:
+
+    1 1 1 1 (all ones)
++   0 0 0 1 (add one)
+-----------
+= 1 0 0 0 0 (zero, with overflow)
+
+If we can find a + (-a) == 1111, we're very close to a + (-a) == 0.
+
+In the positive number a:
+
+- Any 1 bit is already set the way we want; no need to add anything; add 0.
+
+- Any 0 bit needs to be modified to a 1; do that by adding 1 in that column.
+
+That means we just need invert all the bits in the number:
+
+  0 0 1 1 (3_10)
++ 1 1 0 0 (all bits inverted)
+---------
+= 1 1 1 1 (all ones)
+
+To get from adding up to all ones to adding up to 0, recall we just add 1
+with overflow. Let's add that extra 1 after inverting all the bits:
+
+0 0 1 1 (3_10)
+1 1 0 0 (all bits inverted)
+1 1 0 1 (all bits inverted, with 1 added)
+
+    0 0 1 1
++   1 1 0 1
+-----------
+  1 0 0 0 0
+
+That's 0000 with overflow.
+
+This rules works in general!
+
+= Signed number magnitude range
+
+The top-most bit indicates sign: 0==positive, 1==negative.
+
+So, for signed numbers, we effectively have only n-1 digits (4-1=3 above)
+to represent the magnitude of the number.
+
+The range is -2^(n-1)..2^(n-1)-1.
+
+For example, 4 bits is -8..7.
