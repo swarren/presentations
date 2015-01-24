@@ -180,7 +180,7 @@ numbers.
 
 Computer circuits use a fixed number of wires for math. Common sizes are
 8, 16, or 32 wires/signals. This imposes a limit on the largest number
-than can be represented.
+that can be represented.
 
 Each wire represents 1 binary digit, commonly called a bit.
 
@@ -203,9 +203,9 @@ We'll calculate 9 + 9 == 18 (decimal).
 
 Too large to fit into 4 bits!
 
-Computers just throw away the bits they have no space for.
+Computers generally just throw away the bits they have no space for.
 
-So, the result is 0010_2 not 10010_2. That's 2_10 not 18_10!
+So, the computed/stored result is 0010_2 not 10010_2. That's 2_10 not 18_10!
 
 This effect is called overflow.
 
