@@ -1,0 +1,478 @@
+NOTES:
+Demo:
+- Code editor
+- Preview
+- Console
+- Zoom, rotate, pan
+- Auto reload
+- Export
+
+CODE:
+INCLUDE:/home/swarren/git_wa/cad/turtle.scad
+
+NOTES:
+How do we create designs?
+
+Type a description of the object into the editor
+
+Start with primitive shapes
+
+Manipulate them with transformations
+
+Combine them with CSG operations
+
+CSG == Constructive Solid Geometry
+
+CODE:
+
+NOTES:
+Primitive solid: Cube
+
+By default, at origin
+
+CODE:
+cube();
+
+NOTES:
+Primitive solid: Cube
+
+Can center; easier to reason about in some cases
+
+CODE:
+cube(center=true);
+
+NOTES:
+Primitive solid: sphere
+
+Yes, this is a cylinder!
+Very few facets
+
+CODE:
+sphere();
+
+NOTES:
+Primitive solid: sphere
+
+Larger sphere -> more facets
+
+CODE:
+sphere(r=5);
+
+NOTES:
+Primitive solid: sphere
+
+Can set variables $fa/$fn to get smooth shapes
+$fa - angle of each face
+$fn - number of faces
+
+CODE:
+$fn = 100;
+sphere();
+
+NOTES:
+Primitive solid: cylinder
+
+CODE:
+$fn = 100;
+cylinder(r=0.5, h=2, center=true);
+
+NOTES:
+Solid: Polyhedron
+
+User-defined list of points and faces
+
+CODE:
+polyhedron(
+    points=[
+        [ 1,  1, 0],
+        [ 1, -1, 0],
+        [-1, -1, 0],
+        [-1,  1, 0],
+        [ 0,  0, 2]
+    ],
+    triangles=[
+        [0, 1, 4],
+        [1, 2, 4],
+        [2, 3, 4],
+        [3, 0, 4],
+        [1, 0, 3],
+        [2, 1, 3]
+    ]
+);
+
+NOTES:
+Transformations
+
+Start with a regular cube:
+
+CODE:
+cube(center=true);
+
+NOTES:
+Transformations: Scale
+
+CODE:
+scale([2, 1, 0.5])
+    cube(center=true);
+
+NOTES:
+Transformations: Translate
+
+CODE:
+translate([0.75, 0.75, -0.25])
+    cube(center=true);
+
+NOTES:
+Transformations: Rotate
+
+CODE:
+rotate([10, 20, 30])
+    cube(center=true);
+
+NOTES:
+Transformations: Combining
+
+Order matters!
+
+Transformations happen inside out:
+Scale, rotate, translate.
+
+CODE:
+translate([0.75, 0.75, -0.25])
+    rotate([10, 20, 30])
+    scale([2, 1, 0.5])
+    cube(center=true);
+
+NOTES:
+Transformations: Combining
+
+Rotate, translate, scale.
+Scale last -> shear.
+
+CODE:
+scale([2, 1, 0.5])
+    translate([0.75, 0.75, -0.25])
+    rotate([10, 20, 30])
+    cube(center=true);
+
+NOTES:
+Combining operation: Union
+
+CODE:
+$fn = 30;
+union() {
+    cube(center=true);
+    translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+}
+
+NOTES:
+Combining operation: Difference (Child order 1)
+
+CODE:
+$fn = 30;
+difference() {
+    cube(center=true);
+    translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+}
+
+NOTES:
+Difficult visualizing?
+
+Prefix non-visible objects with #
+to show them for debugging
+
+CODE:
+$fn = 30;
+difference() {
+    cube(center=true);
+    #translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+}
+
+NOTES:
+Combining operation: Difference (Child order 2)
+
+CODE:
+$fn = 30;
+difference() {
+    translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+    cube(center=true);
+}
+
+NOTES:
+Combining operation: Difference (Child order 2)
+
+(With highlighting)
+
+CODE:
+$fn = 30;
+difference() {
+    translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+    #cube(center=true);
+}
+
+NOTES:
+Combining operation: Intersection
+
+CODE:
+$fn = 30;
+intersection() {
+    cube(center=true);
+    translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+}
+
+NOTES:
+Combining operation: Intersection
+
+(With object 1 highlighted)
+
+CODE:
+$fn = 30;
+intersection() {
+    #cube(center=true);
+    translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+}
+
+NOTES:
+Combining operation: Intersection
+
+(With object 2 highlighted)
+CODE:
+$fn = 30;
+intersection() {
+    cube(center=true);
+    #translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+}
+
+NOTES:
+Combining operation: Intersection
+
+(With both objects highlighted)
+
+CODE:
+$fn = 30;
+intersection() {
+    #cube(center=true);
+    #translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+}
+
+NOTES:
+Other modifiers: Root
+
+Original
+
+CODE:
+difference() {
+    cube(1, center = true);
+    translate([0, 0, 0.5]) {
+        rotate([90, 0, 0]) {
+            #cylinder(r = 0.2, h = 3,
+                center = true,
+                $fn = 40);
+        }
+    }
+}
+
+NOTES:
+Other modifiers: Root
+
+Using modifier
+
+CODE:
+difference() {
+    cube(1, center = true);
+    translate([0, 0, 0.5]) {
+        !rotate([90, 0, 0]) {
+            #cylinder(r = 0.2, h = 3,
+                center = true,
+                $fn = 40);
+        }
+    }
+}
+
+NOTES:
+Other modifiers: Disable
+
+Original
+
+CODE:
+difference() {
+    cube(1, center = true);
+    translate([0, 0, 0.5]) {
+        rotate([90, 0, 0]) {
+            #cylinder(r = 0.2, h = 3,
+                center = true,
+                $fn = 40);
+        }
+    }
+}
+
+NOTES:
+Other modifiers: Disable
+
+Using modifier
+
+CODE:
+difference() {
+    cube(1, center = true);
+    translate([0, 0, 0.5]) {
+        *rotate([90, 0, 0]) {
+            #cylinder(r = 0.2, h = 3,
+                center = true,
+                $fn = 40);
+        }
+    }
+}
+
+NOTES:
+Variables
+
+Assignment, math pretty similar to other languages
+EXCEPT
+- Values set at compile-time, not run-time
+- The last value set is the value used everywhere
+
+CODE:
+$fn = 30;
+size = 0.8;
+translate([size * -1.2, 0, 0]) cube(size, center=true);
+cube(size, center=true);
+translate([size * 1.2, 0, 0]) cube(size, center=true);
+
+NOTES:
+Functions
+
+Allow repeated code to be written once
+
+CODE:
+module cube_holes() {
+    difference() {
+        cube(1, center=true);
+        cylinder(r=0.25, h=2, center=true, $fn=30);
+    }
+}
+translate([-1.5, 0, 0]) cube_holes();
+cube_holes();
+translate([1.5, 0, 0]) cube_holes();
+
+NOTES:
+Function parameters
+
+Allow for common code/algorithms,
+but with different data
+
+CODE:
+module cube_holes(hole_size) {
+    difference() {
+        cube(1, center=true);
+        cylinder(r=hole_size, h=2, center=true, $fn=30);
+    }
+}
+translate([-1.5, 0, 0]) cube_holes(0.1);
+cube_holes(0.2);
+translate([1.5, 0, 0]) cube_holes(0.3);
+
+NOTES:
+Loops
+
+Repeat a structure for each value in a list.
+
+CODE:
+for (xp = [-2.5 : 1.25 : 3.75]) {
+    translate([xp, 0, 0])
+        difference() {
+            cube(1, center=true);
+            cylinder(r=0.25, h=2, center=true, $fn=30);
+        }
+}
+
+NOTES:
+Loops
+
+For loop body is a set of objects,
+not a set of code to execute.
+
+CODE:
+difference() {
+    cube(1, center=true);
+    for (xp = [-0.451 : 0.226 : 0.5]) {
+        translate([xp, -0.451, 0.451])
+            cube(0.1, center=true);
+    }
+}
+
+NOTES:
+Let's build something real
+
+Start with a cube
+
+CODE:
+cube(1, center=true);
+
+NOTES:
+Hollow it out, using difference
+
+CODE:
+difference() {
+    cube(1, center=true);
+    translate([0, 0.1, 0.1]) cube([0.8, 1, 1], center=true);
+}
+
+NOTES:
+Remove a hole for the motor front face
+
+CODE:
+difference() {
+    cube(1, center=true);
+    translate([0, 0.1, 0.1])
+        cube([0.8, 1, 1], center=true);
+    rotate([90, 0, 0])
+        cylinder(r=0.3, h=1.1, center=true, $fn=30);
+}
+
+NOTES:
+Remove holes for the motor screws
+
+CODE:
+difference() {
+    cube(1, center=true);
+    translate([0, 0.1, 0.1])
+        cube([0.8, 1, 1], center=true);
+    rotate([90, 0, 0])
+        cylinder(r=0.3, h=1.1, center=true, $fn=30);
+    for (xp = [-1 : 2 : 1]) {
+        for (zp = [-1 : 2 : 1]) {
+            translate([xp * 0.3, 0, zp * 0.3])
+            rotate([90, 0, 0])
+            cylinder(r=0.05, h=1.1, center=true, $fn=30);
+        }
+    }
+}
+
+NOTES:
+Cut sides off diagonally
+
+CODE:
+difference() {
+    cube(1, center=true);
+    translate([0, 0.1, 0.1])
+        cube([0.8, 1, 1], center=true);
+    rotate([90, 0, 0])
+        cylinder(r=0.3, h=1.1, center=true, $fn=30);
+    for (xp = [-1 : 2 : 1]) {
+        for (zp = [-1 : 2 : 1]) {
+            translate([xp * 0.3, 0, zp * 0.3])
+            rotate([90, 0, 0])
+            cylinder(r=0.05, h=1.1, center=true, $fn=30);
+        }
+    }
+    translate([0, 0.5, 0.5])
+        rotate([45, 0, 0])
+        cube(1.3, center=true);
+}
+
+NOTES:
+The end
+
+Questions?
+
+CODE:
