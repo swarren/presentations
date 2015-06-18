@@ -42,7 +42,7 @@ def render():
 
     try:
         f = open(fname_notes, 'rt')
-        notes = f.read()
+        notes = f.read().strip()
         f.close()
     except:
         notes = 'NOTES READ FAILURE\r\n'

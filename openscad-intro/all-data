@@ -44,7 +44,7 @@ cube(center=true);
 NOTES:
 Primitive solid: sphere
 
-Yes, this is a cylinder!
+Yes, this is a sphere!
 Very few facets
 
 CODE:
@@ -74,7 +74,8 @@ Primitive solid: cylinder
 
 CODE:
 $fn = 100;
-cylinder(r=0.5, h=2, center=true);
+cylinder(r=0.5, h=2,
+    center=true);
 
 NOTES:
 Solid: Polyhedron
@@ -162,7 +163,8 @@ CODE:
 $fn = 30;
 union() {
     cube(center=true);
-    translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+    translate([0.5, -0.5, 0.5])
+        sphere(r=0.5);
 }
 
 NOTES:
@@ -172,7 +174,8 @@ CODE:
 $fn = 30;
 difference() {
     cube(center=true);
-    translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+    translate([0.5, -0.5, 0.5])
+        sphere(r=0.5);
 }
 
 NOTES:
@@ -185,7 +188,8 @@ CODE:
 $fn = 30;
 difference() {
     cube(center=true);
-    #translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+    #translate([0.5, -0.5, 0.5])
+        sphere(r=0.5);
 }
 
 NOTES:
@@ -194,7 +198,8 @@ Combining operation: Difference (Child order 2)
 CODE:
 $fn = 30;
 difference() {
-    translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+    translate([0.5, -0.5, 0.5])
+        sphere(r=0.5);
     cube(center=true);
 }
 
@@ -206,7 +211,8 @@ Combining operation: Difference (Child order 2)
 CODE:
 $fn = 30;
 difference() {
-    translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+    translate([0.5, -0.5, 0.5])
+        sphere(r=0.5);
     #cube(center=true);
 }
 
@@ -217,7 +223,8 @@ CODE:
 $fn = 30;
 intersection() {
     cube(center=true);
-    translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+    translate([0.5, -0.5, 0.5])
+        sphere(r=0.5);
 }
 
 NOTES:
@@ -229,7 +236,8 @@ CODE:
 $fn = 30;
 intersection() {
     #cube(center=true);
-    translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+    translate([0.5, -0.5, 0.5])
+        sphere(r=0.5);
 }
 
 NOTES:
@@ -240,7 +248,8 @@ CODE:
 $fn = 30;
 intersection() {
     cube(center=true);
-    #translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+    #translate([0.5, -0.5, 0.5])
+        sphere(r=0.5);
 }
 
 NOTES:
@@ -252,7 +261,8 @@ CODE:
 $fn = 30;
 intersection() {
     #cube(center=true);
-    #translate([0.5, -0.5, 0.5]) sphere(r=0.5);
+    #translate([0.5, -0.5, 0.5])
+        sphere(r=0.5);
 }
 
 NOTES:
@@ -334,9 +344,11 @@ EXCEPT
 CODE:
 $fn = 30;
 size = 0.8;
-translate([size * -1.2, 0, 0]) cube(size, center=true);
+translate([size * -1.2, 0, 0])
+    cube(size, center=true);
 cube(size, center=true);
-translate([size * 1.2, 0, 0]) cube(size, center=true);
+translate([size * 1.2, 0, 0])
+    cube(size, center=true);
 
 NOTES:
 Functions
@@ -347,12 +359,15 @@ CODE:
 module cube_holes() {
     difference() {
         cube(1, center=true);
-        cylinder(r=0.25, h=2, center=true, $fn=30);
+        cylinder(r=0.25, h=2,
+            center=true, $fn=30);
     }
 }
-translate([-1.5, 0, 0]) cube_holes();
+translate([-1.5, 0, 0])
+    cube_holes();
 cube_holes();
-translate([1.5, 0, 0]) cube_holes();
+translate([1.5, 0, 0])
+    cube_holes();
 
 NOTES:
 Function parameters
@@ -364,12 +379,15 @@ CODE:
 module cube_holes(hole_size) {
     difference() {
         cube(1, center=true);
-        cylinder(r=hole_size, h=2, center=true, $fn=30);
+        cylinder(r=hole_size, h=2,
+            center=true, $fn=30);
     }
 }
-translate([-1.5, 0, 0]) cube_holes(0.1);
+translate([-1.5, 0, 0])
+    cube_holes(0.1);
 cube_holes(0.2);
-translate([1.5, 0, 0]) cube_holes(0.3);
+translate([1.5, 0, 0])
+    cube_holes(0.3);
 
 NOTES:
 Loops
@@ -381,7 +399,8 @@ for (xp = [-2.5 : 1.25 : 3.75]) {
     translate([xp, 0, 0])
         difference() {
             cube(1, center=true);
-            cylinder(r=0.25, h=2, center=true, $fn=30);
+            cylinder(r=0.25, h=2,
+                center=true, $fn=30);
         }
 }
 
@@ -414,7 +433,8 @@ Hollow it out, using difference
 CODE:
 difference() {
     cube(1, center=true);
-    translate([0, 0.1, 0.1]) cube([0.8, 1, 1], center=true);
+    translate([0, 0.1, 0.1])
+        cube([0.8, 1, 1], center=true);
 }
 
 NOTES:
@@ -426,7 +446,8 @@ difference() {
     translate([0, 0.1, 0.1])
         cube([0.8, 1, 1], center=true);
     rotate([90, 0, 0])
-        cylinder(r=0.3, h=1.1, center=true, $fn=30);
+        cylinder(r=0.3, h=1.1,
+            center=true, $fn=30);
 }
 
 NOTES:
@@ -438,12 +459,15 @@ difference() {
     translate([0, 0.1, 0.1])
         cube([0.8, 1, 1], center=true);
     rotate([90, 0, 0])
-        cylinder(r=0.3, h=1.1, center=true, $fn=30);
+        cylinder(r=0.3, h=1.1,
+            center=true, $fn=30);
     for (xp = [-1 : 2 : 1]) {
         for (zp = [-1 : 2 : 1]) {
-            translate([xp * 0.3, 0, zp * 0.3])
+            translate([xp * 0.3, 0,
+                zp * 0.3])
             rotate([90, 0, 0])
-            cylinder(r=0.05, h=1.1, center=true, $fn=30);
+            cylinder(r=0.05, h=1.1,
+                center=true, $fn=30);
         }
     }
 }
@@ -457,12 +481,15 @@ difference() {
     translate([0, 0.1, 0.1])
         cube([0.8, 1, 1], center=true);
     rotate([90, 0, 0])
-        cylinder(r=0.3, h=1.1, center=true, $fn=30);
+        cylinder(r=0.3, h=1.1,
+            center=true, $fn=30);
     for (xp = [-1 : 2 : 1]) {
         for (zp = [-1 : 2 : 1]) {
-            translate([xp * 0.3, 0, zp * 0.3])
+            translate([xp * 0.3, 0,
+                zp * 0.3])
             rotate([90, 0, 0])
-            cylinder(r=0.05, h=1.1, center=true, $fn=30);
+            cylinder(r=0.05, h=1.1,
+                center=true, $fn=30);
         }
     }
     translate([0, 0.5, 0.5])
