@@ -1,0 +1,15 @@
+{
+  config: {
+    skin: 'narrow'
+  },
+  signal: [
+    {
+      name: 'scl', 
+      wave: 'd0.1.u',
+    },
+    {
+      name: 'sda',
+      wave: 'd01.0d',
+    },
+  ],
+}

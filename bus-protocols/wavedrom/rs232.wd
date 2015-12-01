@@ -1,0 +1,19 @@
+{
+  signal: [
+    {
+      name: 'txd',
+      wave: '102222222211',
+      data: [
+        'd0', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7',
+      ],
+    },
+    {
+      node: '.ab.......cd', 
+    },
+  ],
+  edge: [
+    'a<->b start',
+    'b<->c data byte',
+    'c<->d stop',
+  ]
+}

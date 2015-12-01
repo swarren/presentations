@@ -1,0 +1,23 @@
+{
+  config: {
+    skin: 'narrow'
+  },
+  signal: [
+    {
+      name: 'scl', 
+      wave: '1.......',
+    },
+    {
+      name: 'sda',
+      wave: '0.1...0.',
+    },
+    {
+      node: 'a.b...c.d',
+    },
+  ],
+  edge: [
+    'a<->b Stop',
+    'b<->c Idle',
+    'c<->d Start',
+  ],
+}
