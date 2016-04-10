@@ -35,7 +35,7 @@ import random
 
 answer = random.randint(1, 11)
 while True:
-  guess = int(input("Your guess?"))
+  guess = int(raw_input("Your guess?"))
   if guess == answer:
     print "You got it right!"
     break
