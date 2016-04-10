@@ -32,17 +32,17 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 for i in range(1, 31):
-    printed = False
+  printed = False
 
-    if i % 3 == 0:
-        print "Fizz",
-        printed = True
+  if i % 3 == 0:
+    print "Fizz",
+    printed = True
 
-    if i % 5 == 0:
-        print "Buzz",
-        printed = True
+  if i % 5 == 0:
+    print "Buzz",
+    printed = True
 
-    if not printed:
-        print i,
+  if not printed:
+    print i,
 
-    print
+  print

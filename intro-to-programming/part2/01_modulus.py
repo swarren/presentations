@@ -32,4 +32,4 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 for i in range(1, 31):
-    print i, i % 3
+  print i, i % 3

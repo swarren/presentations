@@ -37,5 +37,5 @@ i = 1
 while i < 100:
   print i
   if random.randint(1, 11) == 1:
-      break
+    break
   i = i + 1
