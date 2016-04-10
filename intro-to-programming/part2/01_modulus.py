@@ -2,7 +2,7 @@
 #
 # https://trinket.io/library/trinkets/1ece9e81ad
 #
-# Copyright (c) 2016, Stephen Warren <swarren@wwwdotor.org>
+# Copyright (c) 2016, Stephen Warren <swarren@wwwdotorg.org>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
