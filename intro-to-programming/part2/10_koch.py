@@ -33,8 +33,14 @@
 
 from turtle import *
 
+# Screen resolution fixup
+# Use 1 on screens with regular resolution
+# Use 3 on 3k/4k screens
+scale = 1
+init_length = 300.0 * scale
+
 def koch(length, n):
-  if n >= 4:
+  if n >= 5:
     fd(length)
     return
 
@@ -47,12 +53,13 @@ def koch(length, n):
   lt(60)
   koch(sublen, n + 1)
 
+pensize(scale)
 speed(0)
 hideturtle()
 penup()
-back(150)
+back(init_length / 2)
 pendown()
-koch(300, 0)
+koch(init_length, 0)
 
 
 

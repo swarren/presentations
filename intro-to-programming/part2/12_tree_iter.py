@@ -39,23 +39,26 @@ from turtle import *
 scale = 1
 init_length = 150.0 * scale
 
-def tree(length, n):
-  color((0, int(n * 255 / 8.0), 0))
+jobs = []
 
-  if n > 7:
+def addjob(length):
+  jobs.append((pos(), heading(), length))
+
+def tree(set_pos, set_heading, length):
+  color((0, int((1 - (length / init_length)) * 255), 0))
+
+  pu(); setpos(set_pos); pd()
+  setheading(set_heading)
+
+  if length < 5:
     fd(length)
-    back(length)
     return
 
   fd(length)
   lt(30)
-  tree(length * 0.5, n + 1)
+  addjob(length * 0.5)
   rt(90)
-  tree(length * 0.7, n + 1)
-  lt(60)
-  pu()
-  back(length)
-  pd()
+  addjob(length * 0.7)
 
 pensize(scale)
 colormode(255)
@@ -66,7 +69,11 @@ back(75 * scale)
 lt(90)
 back(175 * scale)
 pd()
-tree(init_length, 0)
+
+addjob(init_length)
+while jobs:
+    job = jobs.pop(0)
+    tree(*job)
 
 
 
