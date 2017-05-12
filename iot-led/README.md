@@ -1,3 +1,5 @@
+= Introduction
+
 The files in this directory are Arduino code for the ESP8266. They are used in
 the "Internet of Things LED" class that I teach.
 
@@ -30,3 +32,31 @@ https://blog.adafruit.com/2015/06/30/updated-neopixel-support-for-esp8266-and-ar
 
 • USB serial port driver for Windows or Mac; see instructions at
 https://www.pololu.com/docs/0J7/all. For Linux, the driver is already built in.
+
+= Enhancements
+
+This project is very basic. For a real production IoT device, there are many
+features that should/could be added, e.g.:
+
+* Authentication (login via user ID/password or certificate).
+
+* Encryption (SSL on the web server).
+
+* Firmware updates over the network (with authentication and validation of
+course).
+
+* WiFi setup via web pages (e.g. start an AP by default, then allow the user
+to enter AP credentials to connect to).
+
+* Discovery protocols such as MDNS, DNS-SD, LLMNR, or a captive portal, so that
+the user doesn't have to remember IP addresses.
+
+* Support for more than 1 LED.
+
+* IoT messaging protocols such as MQTT.
+
+* Client-side Javascript to provide a slicker UI.
+
+* Android/iOS client application.
+
+Let your imagination run wild!
