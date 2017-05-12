@@ -1,4 +1,4 @@
-= Introduction
+# Introduction
 
 The files in this directory are Arduino code for the ESP8266. They are used in
 the "Internet of Things LED" class that I teach.
@@ -33,7 +33,7 @@ https://blog.adafruit.com/2015/06/30/updated-neopixel-support-for-esp8266-and-ar
 • USB serial port driver for Windows or Mac; see instructions at
 https://www.pololu.com/docs/0J7/all. For Linux, the driver is already built in.
 
-= Enhancements
+# Enhancements
 
 This project is very basic. For a real production IoT device, there are many
 features that should/could be added, e.g.:
