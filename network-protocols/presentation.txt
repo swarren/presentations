@@ -1,0 +1,775 @@
+--- SLIDE ---
+
+Network Protocols (Ethernet, IP)
+OR
+A "day" in the life of an IP packet
+
+Stephen Warren
+
+NCLUG 2017/06/13
+
+--- SLIDE ---
+
+Introduction
+
+- Define various network protocols
+  - Ethernet
+  - IP, ARP
+  - DNS, ...
+- Define interactions/layering between them
+- Mostly older concepts only
+  - Original Ethernet, not 1GBps extensions
+  - IPv4, not IPv6
+  - Most concepts still apply to more recent /
+    advanced protocols, with tweaks
+
+--- SLIDE ---
+
+What is a Network?
+
+- Connects separate machines
+- Allows exchange of data
+- Ephemeral; not storage
+
+--- SLIDE ---
+
+The Serial Port
+
+- Simplest machine<->machine connection
+- Single application
+  - Unless a higher level protocol is used
+  - (SLIP/PPP)
+- Only 2 machines
+  - No addressing
+
+--- SLIDE ---
+
+More Than One Application
+
+- Divide data into chunks; "packets"
+- Add a header to each packet for metadata,
+  - e.g. which conversation the packet belongs to
+- Multiplex packets from n conversations over the
+  link
+
+--- SLIDE ---
+
+Multiplexing Example
+
+| Conversation 2 - Data 0 |
+... (idle)
+| Conversation 1 - Data 0 |
+| Conversation 1 - Data 1 |
+... (idle)
+| Conversation 2 - Data 1 |
+... (idle)
+| Conversation 0 - Data 2 |
+| Conversation 0 - Data 3 |
+... (idle)
+| Conversation 0 - Data 4 |
+
+--- SLIDE ---
+
+More Than Two Machines
+
+- Give each machine an address
+- Add the source/destination address to each packet
+- Use a broadcast medium rather than point-to-point
+- Machines only process packets addressed to them
+- Ethernet is one example
+
+--- SLIDE ---
+
+Ethernet Packet Layout
+("Ethernet II" / "DIX" - other framing types exist)
+
++---------------------+
+| Preamble            |
++---------------------+
+| Destination Address |
++---------------------+
+| Source Address      |
++---------------------+
+| Type/length         | (Protocol ID)
++---------------------+
+| Body                |
++---------------------+
+| Pad                 |
++---------------------+
+| CRC                 |
++---------------------+
+| Delimiter           |
++---------------------+
+
+--- SLIDE ---
+
+Ethernet and Conversations
+
+- Layering!
+- OSI network model (approx)
+- Ethernet transports packets between machines
+- Packet body defined by higher level protocol
+  - e.g. Internet Protocol (IPv4)
+  - Also ARP, IPv6, IPX, DECnet, AppleTalk, ...
+
+--- SLIDE ---
+
+Ethernet Topology
+(logical)
+(legacy physical)
+
++-------+  +-------+  +-------+  +-------+
+| PC A  |  | PC B  |  | PC C  |  | PC D  |
+|       |  |       |  |       |  |       |
+|  NIC  |  |  NIC  |  |  NIC  |  |  NIC  |
++---|---+  +---|---+  +---|---+  +---|---+  
+    |          |          |          |     
+----+----------+----------+----------+----
+
+--- SLIDE ---
+
+Ethernet Topology
+(modern physical)
+
+            +-------+
+            | PC A  |
+            |       |
+            |  NIC  |
+            +---|---+
+                |
++-------+   +---|----+   +-------+
+| PC D  |   |   |    |   | PC B  |
+|       |   | Switch |   |       |
+|  NIC--------  |   --------NIC  |
++-------+   +---|----+   +-------+
+                |
+            +---|---+
+            |  NIC  |
+            |       |
+            | PC C  |
+            +-------+
+
+--- SLIDE ---
+
+Ethernet ("MAC") Addresses (0)
+
+- Globally unique 6 byte value
+- Assigned by NIC manufacturer
+- 3 bytes OUI (vendor code)
+  - Can be "locally assigned" too
+    via flag bit in first address byte
+- 3 bytes unique NIC identifier
+
+50:7b:9d:a7:7e:72
+^^^^^^^^ ^^^^^^^^
+    \     unique
+     LCFC(HeFei) Electronics Technology co., ltd
+
+--- SLIDE ---
+
+Ethernet Addresses (1)
+
+- Unicast
+  One machine transmits, one other receives
+- Broadcast
+  FF:FF:FF:FF:FF:FF
+  One machine transmits, all others receive
+- Multicast
+  Selective broadcast
+
+Byte 0, bit 0: unicast vs multicast/broadcast
+
+--- SLIDE ---
+
+Connecting Networks
+
+- Routers connect networks
+- Receive packets on one network
+  ... retransmit them on another
+
++-------+  +-------+  +-------+  +-------+
+| PC A  |  | PC B  |  | PC C  |  | PC D  |
++---|---+  +---|---+  +---|---+  +---|---+  
+    |          |          |          |     
+----+----------+----+-----+----------+----
+Network 0           |
+               +---------+
+               | Router  |
+               +----|----+
+Network 1           |
+----+----------+----+-----+----------+----
+    |          |          |          |     
++---|---+  +---|---+  +---|---+  +---|---+  
+| PC W  |  | PC X  |  | PC Y  |  | PC Z  |
++-------+  +-------+  +-------+  +-------+
+
+--- SLIDE ---
+
+Routing and Addressing (Part 0)
+
+- Where to send non-local packets?
+- MAC address is globally unique
+- A world-wide table mapping MAC addresses to
+  network route would be too large
+- Need another addressing scheme!
+- Helpfully provided by higher level protocols
+  e.g. IPv4
+- Let's discuss IPv4 first...
+
+--- SLIDE ---
+
+IP (Internet Protocol) (IPv4)
+
+- Higher level protocol
+- Commonly transported by Ethernet
+- Typically directly visible to applications
+  - Apps explicitly create IP/TCP sockets
+- Defines its own addressing scheme
+
+--- SLIDE ---
+
+IP Addresses
+
+- 32-bit addresses
+- Entirely separate from Ethernet addresses
+- Typically represented as 4 8-bit values
+  - 216.58.194.196
+- Hierarchical, somewhat geographic allocation
+- First n bits of address are "network number"
+- Last (32-n) bits are host ID within the network
+- "Netmask" is a 32-bit value with
+  - All network bits set to 1
+  - All host bits set to 0
+- Network IDs used for routing
+
+--- SLIDE ---
+
+IPv6 Addresses
+
+- 128-bit number
+- Can include Ethernet/MAC address
+- Netmask concept still exists with tweaks
+- More structured formats, and auto-assignment
+
+--- SLIDE ---
+
+IP Address Example
+
+Address:    10. 20.205. 51
+Netmask:   255.255.254.  0
+           (also known by bit-width; /23)
+Network:    10. 20.204.  0
+Broadcast:  10. 20.205.255
+
+Note: Historically, netmask was 8, 16, 24 bits
+wide (IP address classes). These days, it's an
+almost arbitrary number of bits (CIDR feature).
+
+--- SLIDE ---
+
+Address Resolution Protocol (ARP)
+
+- Ethernet and IP addresses are different!
+- Applications communicate using IP addresses
+- But need an Ethernet address to send Ethernet
+  packets
+- ARP to the rescue
+- Ethernet can transport ARP packets, just like
+  it transports IP packets (same level of
+  layering)
+
+--- SLIDE ---
+
+ARP Protocol
+
+- PC A wants to send IP packet to 10.0.0.8/24
+- PC A is attached to network 10.0.0.0
+  -> no routing required
+- PC A broadcasts ARP request:
+  to: Ethernet broadcast address
+  from: PC A's Ethernet address
+  packet content:
+    ARP "who has"
+    "Need Ethernet address for 10.0.0.8"
+- PC with IP 10.0.0.8 responds:
+  to: ARP source Ethernet address (PC A)
+  from: PC B's Ethernet address
+  packet content:
+    ARP response
+    IP 10.0.0.8 is Ethernet xx:xx:xx:xx:xx:xx
+
+--- SLIDE ---
+
+Interface debugging - ifconfig
+
+Prints information about all network interfaces
+
+$ ifconfig
+eth0 Link encap:Ethernet  HWaddr a4:34:d9:b3:64:a6  
+     inet addr:192.168.63.205  Bcast:192.168.63.255  Mask:255.255.255.0
+     inet6 addr: 2601:282:8102:7de0:9124:6984:39f3:6ed7/64 Scope:Global
+     inet6 addr: 2601:282:8102:7de0:a634:d9ff:feb3:64a6/64 Scope:Global
+     inet6 addr: fe80::a634:d9ff:feb3:64a6/64 Scope:Link
+     UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+     RX packets:6550 errors:0 dropped:0 overruns:0 frame:0
+     TX packets:4710 errors:0 dropped:0 overruns:0 carrier:0
+     collisions:0 txqueuelen:1000 
+     RX bytes:7357796 (7.3 MB)  TX bytes:672645 (672.6 KB)
+...
+
+--- SLIDE ---
+
+Interface debugging - ip
+
+Prints information about all network interfaces,
+and many other things:
+
+$ ip link
+...
+3: wlp4s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 ...
+    link/ether a4:34:d9:b3:64:a6 brd ff:ff:ff:ff:ff:ff
+...
+
+--- SLIDE ---
+
+ARP debugging - arping
+
+Sends an ARP request, prints result
+
+$ arping -I wlp4s0 192.168.63.1
+ARPING 192.168.63.1 from 192.168.63.205 wlp4s0
+Unicast reply from 192.168.63.1 [20:4E:7F:8B:2A:48]  2.496ms
+...
+
+--- SLIDE ---
+
+ARP debugging - arp
+
+Prints the current ARP cache
+
+$ arp -an
+? (192.168.63.163) at 00:04:4b:73:ed:85 [ether] on wlp4s0
+? (192.168.63.1) at 20:4e:7f:8b:2a:48 [ether] on wlp4s0
+? (10.126.189.249) at 00:16:3e:8b:d2:d7 [ether] on lxdbr0
+? (192.168.63.116) at f4:f5:d8:c6:04:62 [ether] on wlp4s0
+
+--- SLIDE ---
+
+Assigning IP Addresses
+
+- Network portion decided by the administrator of
+  the network you physically connect to.
+- Host portion decided by either:
+  - Static IP configuration:
+    An administrator manually assigns the number
+  - Dynamically:
+    Using DHCP
+    (older protocols RARP, BOOTP exist but have
+    fallen out of use)
+
+--- SLIDE ---
+
+DHCP (Dynamic Host Configuration Protocol)
+
+- A protocol whereby a machine (a DHCP server)
+  autonomously assign  IP addresses to machines
+  (DHCP clients) when they request.
+- Numbers may be assigned dynamically from a pool,
+  or pre-assigned manually
+- Pre-assignment gives the benefits of a static IP
+  (IP doesn't change, so humans can remember it)
+  but without having to manually 
+- DHCP actually uses UDP packets, which are nested
+  inside IP packets, which are transported by
+  Ethernet. Doesn't this require an IP address?
+  - Yes and no - DHCP uses special addresses
+    0.0.0.0 (unspecified) and
+    255.255.255.255 (broadcast).
+
+--- SLIDE ---
+
+DHCP Example
+
+- PC A need an IP address for a particular NIC
+- PC A broadcasts DHCP discovery request
+- All DHCP servers broadcast DHCP offer
+  - Response is broadcast since the client has no
+    IP address yet, and the communication uses UDP
+    not raw Ethernet, so unicast impossible
+  - This includes the IP the client should use
+  - It's possible for multiple servers to offer
+- PC A broadcasts a DHCP request to claim address
+  - Request packet includes ID of chosen server
+  - Other servers see this, and see that the request
+    packet contains a different server's ID, and
+    hence invalidate their offer in their database
+- Chosen DHCP server responds (unicast) with an
+  acknowledgement packet
+
+--- SLIDE ---
+
+DHCP Further Details
+
+- Offer and Ack may include further details, e.g.
+  - Subnet mask
+  - Default gateway (for routing; see later)
+  - DNS servers (for name lookup; see lateR0
+  - Many other options
+- DHCP leases expire and must be renewed by
+  periodically repeating portions of the protocol
+- Other DHCP messages exist, such as
+  - Information request
+  - Address release
+
+--- SLIDE ---
+
+Internet Protocol (IP)
+
+- IP not directly used
+- Other protocols layered inside,
+  - Just like IP layered within Ethernet
+- IP defines a common packet format
+  - Which wraps nested protocol packets
+- Common IP protocols:
+  - UDP
+  - TCP
+
+--- SLIDE ---
+
+IP Packet Format
+
+- Version/length/...
+- Fragmentation data
+- TTL, protocol, checksum
+- Source IP address          <<<<
+- Destination IP address     <<<<
+- Options
+- Higher-level protocol data <<<<
+
+--- SLIDE ---
+
+UDP (User Datagram Protocol)
+
+- Datagram == Packet
+- Connectionless; Each datagram is separate
+- Bi-directional
+  - Although this doesn't affect the wire protocol
+- Unreliable; datagrams may get dropped
+- Datagrams may be delivered out-of-order
+- Lower overhead/latency than TCP though
+  - Often used for data/media streaming
+  - With custom higher-level error handling
+    protocols
+- Common examples: DHCP, OpenVPN, DNS
+
+--- SLIDE ---
+
+TCP (Transmission Control Protocol)
+
+- Logically a stream of bytes
+- System decides how to group bytes into packets
+- Connection-oriented: explict connect/disconnect
+  actions which actually transmit packets
+- Bi-directional
+  - With explicit protocol to set up both directions
+- Reliable; any missing data is retransmitted
+- Ordered
+- Common examples: HTTP, FTP, SSH, many!
+
+--- SLIDE ---
+
+TCP: Session Startup
+
+Client     Packets            Server
+                              listen()
+connect()
+           --- SYN -->
+                              accept()
+           <-- ACK + SYN ---
+           --- ACK --->
+
+--- SLIDE ---
+
+TCP: Reset
+
+System A   Packets       System B
+           <-- RST ---
+
+- Immediately breaks connection
+- Most common in response to initial SYN
+- Can occur due to incorrect shutdown procedure
+
+--- SLIDE ---
+
+TCP: Data Transfer
+
+System A   Packets        System B
+write()
+           --- Data -->
+                          read()
+           <-- ACK ---
+
+- Each packet has a sequence number, used for ack
+- Many data packets can be outstanding (not ack'd)
+  (Windowing)
+- Ack is a "flag" that can piggy-back on data
+  travelling the other direction
+  - Don't need to waste bandwidth on standalone
+    ack packets
+- Timeouts or other conditions can trigger
+  re-transmit of data if no ack is received
+
+--- SLIDE ---
+
+TCP: Graceful Connection Close/Shutdown
+
+System A   Packets       System B
+close()
+           --- FIN -->
+           <-- ACK ---
+
+- Each direction closes independently!
+  - Can be open/established in on direction,
+    closing/closed in the other!
+  - Very important for e.g. HTTP request handling
+- Ack is a "flag" that can piggy-back on data
+  travelling the other direction
+  - Don't need to waste bandwidth on standalone
+    ack packets
+
+--- SLIDE ---
+
+Meaningful Names
+
+- So far, we've talked about numerical addresses
+- Wouldn't names be easier for humans?
+- The DNS (Domain Name Service) protocol maps
+  names to addresses
+- Other protocols exist, e.g. WINS, NETBIOS, ...
+  - Those are more LAN oriented
+  - DNS is distributed and globally applicable
+
+--- SLIDE ---
+
+DNS
+
+- Maps names like www.google.com to records
+- Many types of records
+  - IPv4 addresses (A)
+  - IPv6 addresses (AAAA)
+  - DNS servers (NS)
+  - Canonical Names (CNAME)
+  - Mail exchangers (MX)
+  - Text records (TXT)
+
+--- SLIDE ---
+
+DNS Hierarchy and Distribution
+
+- Each dot-separated level of DNS may be hosted by
+  a different set of servers
+- The "root servers" serve the NS records for
+  .com, .edu, .co.uk, ...
+- Those DNS servers for .com serve the records for
+  every sub-domain (e.g. NS for google.com)
+- The servers for google.com serve all the records
+  within google.com, and can further point at more
+  sub-domains if you wish.
+
+--- SLIDE ---
+
+Complete DNS query example
+
+To: Root server (e.e. a.root-servers.net)
+Question: NS for .com
+Answer: e.gtld-servers.net. (192.12.94.30)
+
+To: e.gtld-servers.net. (192.12.94.30)
+Question: NS for google.com
+Answer: ns2.google.com. (216.239.34.10)
+
+To: ns2.google.com. (216.239.34.10)
+Question: A for www.google.com
+Answer: 172.217.6.68
+
+--- SLIDE ---
+
+Other DNS Topics
+
+- Glue Records
+- Caching
+- Multiple answers
+  - And Round-robin reponse ordering
+
+--- SLIDE ---
+
+DNS Debugging Tools
+
+$ dig -t a www.google.com # @ns2.google.com
+...
+;; ANSWER SECTION:
+www.google.com.		300	IN	A	172.217.6.68
+
+$ nslookup www.google.com #ns2.google.com
+...
+Address: 172.217.6.68
+
+--- SLIDE ---
+
+Routing
+
+- How do we send packets outside the LAN?
+- What about machines with multiple NICs?
+- Routing!
+
+--- SLIDE ---
+
+Subnet Masks
+
+- Recall every IP network has:
+  - A network addres
+  - A netmask
+- Any IP where:
+  (IP & netmask) == (network address & netmask)
+  ... is part of that network
+- Any IP that is part of any NIC's IP network can
+  simply be sent directly to it, via that NIC
+
+--- SLIDE ---
+
+Gateways
+
+- Any packet not part of a NIC's network can't
+  be sent directly
+- The "routing table" tells the system where to
+  send those packets
+- It's a table of other machines that can help
+  this machine get packets to other destinations
+- Those machines are routers
+- Any non-local packet is sent to a router, which
+  then determines the next hop, and so on, through
+  many hops to the final destination
+
+--- SLIDE ---
+
+Routing Tables
+
+- Maps from (address, mask) to gateway
+- Entries can be added:
+  - By DHCP server
+  - Manually (e.g. part of static IP config)
+  - By more advances protocols (e.g. BGP, OSPF)
+    - Generally for larger/more-central/important
+      routers
+
+--- SLIDE ---
+
+Debugging Routing - netstat
+
+$ netstat -rn
+
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0         192.168.63.1    0.0.0.0         UG        0 0          0 wlp4s0
+10.0.3.0        0.0.0.0         255.255.255.0   U         0 0          0 lxcbr0
+10.126.189.0    0.0.0.0         255.255.255.0   U         0 0          0 lxdbr0
+169.254.0.0     0.0.0.0         255.255.0.0     U         0 0          0 lxdbr0
+192.168.63.0    0.0.0.0         255.255.255.0   U         0 0          0 wlp4s0
+
+Note: 0.0.0.0/0.0.0.0 is the "default gateway";
+the catch-all when no other entry matches.
+
+--- SLIDE ---
+
+Debugging Routing - ip
+
+$ ip route
+default via 192.168.63.1 dev wlp4s0  proto static  metric 600 
+10.0.3.0/24 dev lxcbr0  proto kernel  scope link  src 10.0.3.1 linkdown 
+10.126.189.0/24 dev lxdbr0  proto kernel  scope link  src 10.126.189.1 
+169.254.0.0/16 dev lxdbr0  scope link  metric 1000 
+192.168.63.0/24 dev wlp4s0  proto kernel  scope link  src 192.168.63.205  metric 600 
+
+--- SLIDE ---
+
+Routing TTL
+
+- Routing involves forwarding packets many times
+- How to avoid loops?
+- Each packet has a TTL ("Time To Live") field
+- TTL decremented each time a packet is forwarded
+- If TTL reaches 0, the packet is dropped
+  - And the sender is informed 
+- Many path-tracing utilities use TTL expiry to
+  map the path
+
+--- SLIDE ---
+
+ICMP - Internet Control Message Protocol
+
+- Used for diagnostic and control purposes, e.g.:
+  - Echo (ping)
+  - Destination unreachable
+  - Time exceeded (TTL expired)
+  - ...
+- ICMP packet sent by machine that detects a
+  condition back to the original sender of the
+  packet
+
+--- SLIDE ---
+
+ICMP - ping
+
+Sends ICMP echo requests, prints replies
+
+$ ping www.google.com
+PING www.google.com (216.58.217.36) 56(84) bytes of data.
+64 bytes from den03s10-in-f36.1e100.net (216.58.217.36): icmp_seq=1 ttl=55 time=17.9 ms
+...
+
+--- SLIDE ---
+
+ICMP - traceroute
+
+- Sends ICMP echo or TCP SYN packets with varying TTL
+- Determines the router IP at each hop
+
+$ traceroute www.google.com
+traceroute to www.google.com (216.58.217.36), 30 hops max, 60 byte packets
+ 1  foxrunrouter (192.168.63.1)  11.192 ms  11.727 ms  11.719 ms
+ 2  96.120.13.77 (96.120.13.77)  13.572 ms  20.054 ms  19.905 ms
+ 3  ae-202-sur02.fortcollins.co.denver.comcast.net (68.85.221.109)  20.495 ms  18.350 ms  22.303 ms
+ 4  ae-33-ar01.aurora.co.denver.comcast.net (68.86.103.117)  23.858 ms  24.628 ms  22.889 ms
+...
+10  den03s10-in-f4.1e100.net (216.58.217.36)  35.682 ms  67.521 ms  68.066 ms
+
+--- SLIDE ---
+
+More Debugging Tools
+
+- tracepath (like traceroute)
+- telnet (attempt a TCP connection)
+- tcpdump, Wireshark (see all packets)
+- Kernel log files; dmesg, /var/log
+  (see firewall errors, unexpected packets)
+- sysctl, /sys
+  (enable/disable/configure features)
+
+--- SLIDE ---
+
+Not Covered!
+
+- MTU
+- IP over non-Ethernet
+- Bridging, STP
+- VLAN
+- Interface aggregation
+- NAT
+- Packet firewalls (iptables, shorewall)
+- IPv6
+- IPSec, VPNs
+- Routing: RIPv2, OSPF, BGP, AS Numbers
+- ...
+
+--- SLIDE ---
+
+Questions?
