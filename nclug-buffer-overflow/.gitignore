@@ -1,0 +1,6 @@
+global
+heap
+stack-ret
+stack-var-data
+stack-var-flag
+
