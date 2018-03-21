@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
 # https://trinket.io/library/trinkets/0d52675fbf
 #
