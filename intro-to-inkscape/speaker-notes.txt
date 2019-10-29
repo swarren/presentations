@@ -1,0 +1,326 @@
+Basic Inkscape
+================================================================================
+
+Free (OSS).
+Linux, Windows, Mac
+Download from inkscape.org
+Vector graphics not bitmap (scalable)
+SVG is native data format, can import/export many formats
+For nerds: Write plugins in Python, or generate SVG data from Python!
+Lots of good tutorials on youtube.com
+
+UI:
+- Menu
+- Toolbars:
+  - top: dynamic options
+  - left: mouse actions
+  - bottom: color palette
+  - right: all kinds of knobs to twiddle
+
+Open a file, scroll and zoom
+  /home/swarren/svn_wa/files/sca/personal-device/stephen-device-registered-redrawn.svg
+  Mouse scroll or wheel actions
+  Scrollbars  
+  Ctrl + cursor keys
+
+Other samples:
+  /home/swarren/svn_wa/files/sca/flyer/uh-allthing-flyer-front.svg
+  https://github.com/swarren/sca-making/blob/master/lucet-forks/lucet-fork.svg
+  https://github.com/swarren/sca-devices-badges/blob/master/outlands/land-devices/outlands-device.svg
+  https://github.com/swarren/sca-devices-badges/blob/master/outlands/populace-badges/caerthe-populace-badge.redrawn.svg
+
+Draw a line
+  Toolbar on left, or keyboard shortcut (Shift-F6)
+  Click to start, double-click to end
+  Ctrl: Snap to common angles
+  Multiple clicks: multiple lines
+  Can join back to start point to make a polygon
+
+Draw a square or circle
+  Same as a line, just different shapes
+  Square/rect: F4
+  Circle/ellipse: F5
+
+Fill and stroke
+  Get dialog:
+    Right-click object, select Fill and Stroke
+    Object menu, Fill and Stroke.
+    Ctrl-Shift-F.
+  Fill color
+  Stroke color, width, style
+  Selecting colors from palette toolbar
+    click: fill
+    shift-click: stroke
+
+Alpha blended fill
+  Helps you see overlapped objects
+
+Arrow in toolbar, or F1 to change to select mode, or Escape
+  Click to select
+    Use Alt-click to cycle through objects on top of each-other; good for complex drawings
+    Or, drag top object away, click the object you want, undo the move (Ctrl-Z)
+  Drag strokes/fills to move
+    Ctrl-drag move h/v only
+  Drag handles to resize
+    Ctrl-drag maintains aspect ratio
+    Shift-drag maintains center
+  Click again to cycle between move/rotate mode
+    Drag handles to rotate or shear
+
+Exact size/position
+  Type numbers into toolbar too
+  resize: toolbar button to maintain aspect ratio if needed
+
+Copy, paste, cut, duplicate
+  Ctrl-C, V, X, D
+  Even between documents!
+  Drag to select (multiple objects)
+
+Z-order
+  Set different fill colors for demo
+  Home, End, Page-up, Page-down
+
+Object vs Path
+  Square/rect/circle/ellipse/text are objects; always this shape
+  Object -> Path converts to path; a series of connected lines
+
+Edit paths by node (F2)
+  Click to select object
+  Drag individual points
+  Drag *paths* to get bezier curve
+    Handles appear from nodes that can be moved to affect curve
+  Nodes can be sharp, smooth, etc.
+  Add/remove nodes
+    Toolbar at top for many actions
+    Select node, delete key
+    Double-click to add node
+
+Undo/redo
+  Ctrl-Z/Ctrl-Shift-Z
+  Or menus
+
+Object toolbar:
+  Set object X/Y/W/H to specific numbers
+  Keep aspect ratio toggle
+  Scale stroke size toggle and more
+
+Transform dialog box
+  Object -> Transform
+  Scale, rotate
+  Scale: Toolbar buttons to scale stroke too, or not!
+
+Align/distribute toolbox
+  Object -> Align and Distribute
+  Relative to page, selection area, first/last selected
+
+Grouping
+  Ctrl-G/Ctrl-Shift-G
+  Apply actions to many objects at once
+  Easier to manage separate parts of a complex drawing
+
+File export
+  PDF, PNG, DXF, ...
+
+Snapping
+  Enable/disable/control via toolbar on right
+  Points when starting/ending lines
+  Points or edges when moving objects
+  Very useful for complex drawings or repetitive layouts (grids)
+
+Inkscape for lucet fork design
+================================================================================
+
+Example: https://github.com/swarren/sca-making/blob/master/lucet-forks/lucet-fork.svg
+
+Measure all the interesting points on the existing fork.
+
+Draw rect for overall outline. Set w/h based on measurements.
+1.875 x 6.225
+
+Duplicate rect and set w based on measurements.
+Do this for each interesting width.
+1.25 x 6.225
+0.875 x 6.225
+0.625 x 6.225
+
+Draw a single vertical line for the center position.
+Select all, align horizontal centers.
+
+Duplicate overall rect, and set h based on measurements.
+Ensure the rect is moved to align with bottom of overall rect
+Do this for each interesting height.
+1.875 x 5
+1.875 x 3.375
+1.875 x 2.5
+1.875 x 1.875
+1.875 x 0.875
+
+Draw polygon linking all the interesting points with straight lines.
+Probably want to set polygon stroke to contrasting color.
+NOTE: Only draw the left half of the shape; we will dup/union later
+  to get symmetry.
+F2 (node editor), then drag the lines to the right curve shape.
+
+Draw circle for hole and place it.
+
+Dup the polygon and circle, move outside grid.
+Dup the polygon, flip horiz, snap it to R side.
+Union the 2 polygons.
+Maybe combine polygon and circle.
+
+Some LASER cutter SW imports the SVG directly.
+Other SW might need a DXF etc.
+
+Inkscape for Heraldry
+================================================================================
+
+Useful images to import:
+
+http://heraldicart.org/
+http://www.vikinganswerlady.com/Stars/Heraldry_SVG_Images/index.htm
+http://mistholme.com/
+https://commons.wikimedia.org/wiki/Category:SVG_coat_of_arms_elements
+
+>>>>> Reproducing the Outlands War Ensign:
+
+War Ensign: Bitmap tracing:
+
+Original bitmap: https://github.com/swarren/sca-devices-badges/blob/master/outlands/other/outlands-war-ensign.original.gif
+Edited: https://github.com/swarren/sca-devices-badges/blob/master/outlands/other/outlands-war-ensign.original.attire-only.png
+File/Import or Ctrl-I to import bitmap to Inkscape
+Path/Trace Bitmap or Shift-Alt-B to trace the bitmap; convert to vector format
+Enable live preview
+Various scan types; experiment for best results
+Brightness cutoff works well for this image
+Manually clean up (move, add, delete) nodes after conversion
+  Open outlands-war-ensign.redrawn.svg to show the extra overlaid black lines
+
+War Ensign: Background:
+
+Draw 3" square, green fill, 0.5mm black path
+Horizontal dividers:
+  Draw 5 vertical lines taller than the square
+  Either snap L and R lines to square, or use align/distribute on them
+  Select all 4 lines, and distribute them all horizontally
+Repeat last 3 steps for horizontal dividers too
+  Can use duplicate, rotate 90, snap
+
+Use "Draw Bezier curves and lines" (Shift-F6) for each yellow triangle
+  Use snapping to place points
+  Create points in a clockwise direction
+
+To create final image:
+  Duplicate background and tines
+  Move to a clear part of the document and compose them
+
+Tip:
+Working with a copy keeps a record of the steps you took;
+  you can easily go back and tweak an earlier step without starting from scratch
+
+Hide the work by:
+  Select the final image
+  File/Document Properties or Ctrl-Shift-D
+  Resize page to drawing or selection
+  Work is now outside visible area to any default SVG viewer, or file export
+
+>>>>> Reproducing the Caerthe Populace Badge:
+
+Bitmap tracing (grays) to extract leaf shape
+
+Concentric circles to make the bordure and inner edge of embattlement
+  Manually set radius, aligned center
+  Can use different colors, or partially transparent layers (fill -> opacity) to see through
+  Path difference to get the bordure ring, out to inner edge of embattlement
+
+Rays for embattlement:
+  Draw circle
+  One line drawn manually, then duplicated/rotated to get the wedges
+  Align line on circle vertically & horizontally
+  Draw vertically with Ctrl held
+  Ctrl-D to duplicate
+  Transform (Object/Transform or Ctrl-Shift-M) -> Rotate -> 22.5 degrees -> apply
+  Ctrl-D/apply multiple times to repeat
+  Select all, rotate 11.25 degrees to orient correctly
+  Set line widths very fine
+  Fill (Shift-F7) alternating wedges
+
+Limited size rays for embattlement:
+  Duplicate all the rays
+  Combine rays into a single shape (select all, Path/Union or Ctrl-Shift-+)
+  Duplicate mid-size circle, align centers with ^^, Path/Intersect or Ctrl-Shift-*
+  Z-order matters! Start with bottom shape and subtract the top.
+
+Embattlement:
+  Duplicate bordure ring from above
+  Duplicate rays
+  Align them V/H
+  Subtract paths (Path/Subtract, or Ctrl--)
+
+Background:
+  Duplicate main circle
+  Fill yellow
+  Place behind embattlement
+
+Leaves:
+  Intersect leaves with a circle to cut them out of embattlement
+  Set color green
+  ((Optional: Path effects -> Pattern along path -> paste the tiny line w/ repeated copies type))
+  Path/object to path on the leaf.
+  Intersect objects to extract just one leaf
+  Draw white fill, no stroke lines or rectangles for the veins
+  Set blur ~2% to get smooth vein appearance
+  Group the leaf and veins
+  Duplicate and rotate 120 degrees to get 3 leaves, group together
+  Scale and place result over background
+
+>>>>> Reproducing the Caer Galen Populace Badge:
+
+Path/Cut on a circle to do counter-change
+Path/Intersect on harp to do counter-change
+Put all the objects (e.g. duplicated harp) in place before this, so they stay aligned
+
+>>>>> Reproducing the Nahrun Populace Badge:
+
+Import pre-drawn cross crossly!
+
+Object intersection for the bend
+  Draw horizontally for ease of alignment when drawing, then rotate
+
+Duplicate cross 5 times, then distribute within selection for the objects on the bend
+
+Edit/Clone/Create Tiled Clones for all the crosses
+
+>>>>> Reproducing the Plattefordham Populace Badge:
+
+Duplicate and snap to create the grid of bricks
+
+Intersection for the flaunches; ellipse and main badge outline
+
+Draw one arrow manually, duplicate and rotate to get 3
+Manually draw the bow parts
+Intersect/union to get the center of the bow
+Manually set Z order so the right objects shown on top
+
+>>>>> Reproducing the Windkeep Populace Badge
+
+Bitmap worked very well for the griffin
+
+Distributed grid for the embattlement, followed by manual line drawing with snap-to-grid
+
+>>>>> Reproducing the Unser Hafen Populace Badge
+
+Write a program in Python to draw the design for me.
+SVG generation libraries exist.
+SVG is just a plain text format when it comes down to it. Edit it yourself!
+https://github.com/swarren/sca-devices-badges/blob/master/outlands/populace-badges/unser-hafen-populace-badge.py
+
+Easy automated experimentation with tweaks to the design.
+See the "n-up"/contact-sheet:
+https://github.com/swarren/sca-devices-badges/blob/master/outlands/populace-badges/unser-hafen-populace-badge/unser-hafen-populace-badge-all.generated.svg
+
+
+
+
+FIXME:
+
+Aarquelle: Waves: Draw vertical link lines, select 2 wave lines + 2 straight lines, combine, then must join each of the 4 pairs of nodes to make it a single object.
