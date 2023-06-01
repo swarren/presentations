@@ -4,10 +4,14 @@ Basic Inkscape
 Free (OSS).
 Linux, Windows, Mac
 Download from inkscape.org
-Vector graphics not bitmap (scalable)
+Vector graphics not bitmap
+  (scalable; demo xmag for bitmaps, inkscape zooming for vector)
 SVG is native data format, can import/export many formats
+  Many other apps handle SVG, e.g. LightBurn (FCCH LASERs), VCarve Pro (FCCH CNC)
 For nerds: Write plugins in Python, or generate SVG data from Python!
-Lots of good tutorials on youtube.com
+Lots of good tutorials on youtube.com (I watch a lot of "Logos by Nick")
+
+Run `screenkey` to show keystrokes
 
 UI:
 - Menu
@@ -18,91 +22,137 @@ UI:
   - right: all kinds of knobs to twiddle
 
 Open a file, scroll and zoom
-  /home/swarren/svn_wa/files/sca/personal-device/stephen-device-registered-redrawn.svg
+  /home/swarren/git_wa/files/sca/personal-device/stephen-device-registered-redrawn.svg
   Mouse scroll or wheel actions
-  Scrollbars  
   Ctrl + cursor keys
 
 Other samples:
-  /home/swarren/svn_wa/files/sca/flyer/uh-allthing-flyer-front.svg
-  https://github.com/swarren/sca-making/blob/master/lucet-forks/lucet-fork.svg
+  /home/swarren/git_wa/files/sca/flyer/uh-allthing-flyer-front.svg
+  https://github.com/swarren/sca-making/blob/master/lucet-forks-naalbinding-needles/lucet-fork.svg
   https://github.com/swarren/sca-devices-badges/blob/master/outlands/land-devices/outlands-device.svg
   https://github.com/swarren/sca-devices-badges/blob/master/outlands/populace-badges/caerthe-populace-badge.redrawn.svg
 
 Draw a line
-  Toolbar on left, or keyboard shortcut (Shift-F6)
-  Click to start, double-click to end
-  Ctrl: Snap to common angles
-  Multiple clicks: multiple lines
-  Can join back to start point to make a polygon
+  Toolbar on left, or keyboard shortcut B (Bezier) or Shift-F6
+  Click to start, click each point, double-click to end
+    Multiple clicks: multiple lines
+    Can join back to start point to make a polygon
+  While drawing a line:
+    Ctrl: Snap to common angles
+  While clicking:
+    Drag to make a curve rather than a straight line
+  Cancel tool: s or Escape or F1
+    Goes back to select/move/resize tool
 
 Draw a square or circle
-  Same as a line, just different shapes
-  Square/rect: F4
-  Circle/ellipse: F5
+  Roughly the same as a line, just different shapes
+  Shortcuts:
+    Square/rect: r (Rectangle) or F4
+    Circle/ellipse: e (Ellipse) or F5
+  While dragging:
+    Shift: First click is center rather than corner.
+    Ctrl: Snap angle (aspect ration)
 
 Fill and stroke
   Get dialog:
     Right-click object, select Fill and Stroke
     Object menu, Fill and Stroke.
     Ctrl-Shift-F.
-  Fill color
-  Stroke color, width, style
+  Fill color, Stroke color, Stroke style (width, and much more)
+    Watch out: In older versions of Inkscape: The stroke width is included in object size!
+    "Hairline" width is zero-width, but visible; useful for CAD.
   Selecting colors from palette toolbar
     click: fill
     shift-click: stroke
 
-Alpha blended fill
-  Helps you see overlapped objects
-
-Arrow in toolbar, or F1 to change to select mode, or Escape
+Select and Transform Objects tool (move, resize, rotate, deform)
+  s or Escape or F1
   Click to select
-    Use Alt-click to cycle through objects on top of each-other; good for complex drawings
-    Or, drag top object away, click the object you want, undo the move (Ctrl-Z)
   Drag strokes/fills to move
     Ctrl-drag move h/v only
   Drag handles to resize
     Ctrl-drag maintains aspect ratio
     Shift-drag maintains center
   Click again to cycle between move/rotate mode
+    Drag corners to rotate
     Drag handles to rotate or shear
+    Ctrl snaps angles
 
-Exact size/position
-  Type numbers into toolbar too
-  resize: toolbar button to maintain aspect ratio if needed
+Object toolbar:
+  Select object(s) then:
+  Set object X/Y/W/H to specific numbers
+  Keep aspect ratio toggle
+  Scale stroke size toggle and more
+
+Advanced selection
+  Use Alt-click to cycle through objects on top of each-other; good for complex drawings
+  Or, drag top object away, click the object you want, undo the move (Ctrl-Z)
+  Drag to select (multiple objects)
+  Shift-click objects to add to selection
+  Ctrl-click objects to remove from selection
+  Alt-drag and draw a line that intersects objectes to add to selection
 
 Copy, paste, cut, duplicate
-  Ctrl-C, V, X, D
+  Ctrl-C, V, X; copy, paste, cut
   Even between documents!
-  Drag to select (multiple objects)
+  Ctrl-D; duplicate
 
 Z-order
   Set different fill colors for demo
   Home, End, Page-up, Page-down
 
-Object vs Path
-  Square/rect/circle/ellipse/text are objects; always this shape
-  Object -> Path converts to path; a series of connected lines
-
-Edit paths by node (F2)
-  Click to select object
-  Drag individual points
-  Drag *paths* to get bezier curve
-    Handles appear from nodes that can be moved to affect curve
-  Nodes can be sharp, smooth, etc.
-  Add/remove nodes
-    Toolbar at top for many actions
-    Select node, delete key
-    Double-click to add node
-
 Undo/redo
   Ctrl-Z/Ctrl-Shift-Z
   Or menus
 
-Object toolbar:
-  Set object X/Y/W/H to specific numbers
-  Keep aspect ratio toggle
-  Scale stroke size toggle and more
+Grouping
+  Ctrl-G/Ctrl-Shift-G
+  Apply actions to many objects at once
+  Easier to manage separate parts of a complex drawing
+
+Snapping
+  Enable/disable/control via toolbar on top-right
+  Points when starting/ending lines
+  Points or edges when moving objects
+  Very useful for complex drawings or repetitive layouts (grids)
+  Highly configurable re: which points snap, and what they snap to
+
+Import/Export
+================================================================================
+
+File menu > export
+  Saves a copy of the document in various other formats
+  PNG, JPG, PDF, SVG, ...
+
+File menu > save as
+  Also saves a copy of the document in various other formats
+  Many more formats: DXF, EMF, EPS, HPGL, ...
+
+File menu > import
+  Loads another image file, and adds it to the current document
+  The imported image/objects can be manipulate much like any other
+
+Manipulating Objects
+================================================================================
+
+Object vs Path
+  Square/rect/circle/ellipse/text are objects; always this shape
+    Defined by a specific set of parameters/points
+  Lines/Bezier are just a list of points and lines connecting them
+  Object -> Path converts an object to a path
+  Some operations or other SVG-handling-tools only deal with paths, not objects
+    Especially for text!
+
+Edit paths by node (F2)
+  Click to select object
+  Drag individual points
+  Drag *paths* to get bezier curves
+    Handles appear from nodes that can be moved to affect curve
+  Nodes can be sharp, smooth, etc.
+  Add/remove/join/break nodes
+    Toolbar at top for many actions
+    Select node, delete key
+    Double-click to add node
 
 Transform dialog box
   Object -> Transform
@@ -113,24 +163,66 @@ Align/distribute toolbox
   Object -> Align and Distribute
   Relative to page, selection area, first/last selected
 
-Grouping
-  Ctrl-G/Ctrl-Shift-G
-  Apply actions to many objects at once
-  Easier to manage separate parts of a complex drawing
+Boolean Operations, Combining Paths
+================================================================================
 
-File export
-  PDF, PNG, DXF, ...
+Boolean operations
+  Select two objects
+  Path > Union/Difference/Intersect/Exclude/Divide/...
 
-Snapping
-  Enable/disable/control via toolbar on right
-  Points when starting/ending lines
-  Points or edges when moving objects
-  Very useful for complex drawings or repetitive layouts (grids)
+Inset/Outset
+  Select an object
+  Path > Inset/Outset or Ctrl-(, Ctrl-)
+
+Combine & Break Apart
+  Draw some object
+  Some fill, thick stroke
+  Path > Stroke to path
+  Now multiple objects (grouped):
+    1 for the stroke, with 2 sub paths; 1 per side of the stroke
+    1 for the fill, with 1 sub path; the original shape outline
+  Delete fill
+    Ctrl-Shift-K break apart - now 2 objects each with 1 path
+    Ctrl-K       combine     - now 1 object with 2 paths
+  Very powerful e.g for getting similar shapes slightly offset
+
+Tips & Tricks
+================================================================================
+
+Opacity
+  On Fill and Stroke tab
+  e.g. 25% - 50%
+  Helps you see through overlapped objects
+  Or View > Display Mode > Outline / Outline Overlay
+
+Align/distribute for sub-dividing
+  Draw rectangle
+  Line on left edge
+  Duplicate move horizontally to middle (Ctrl-drag)
+  Duplicate move all the way to the right (snap to corner)
+  Select all 3 lines
+  Alignment > Distribute horizontally with even horizontal gaps 
+  Can divide in half, into 3, into n
+  Can repeat vertically
+  Can even work with angled lines...
+
+Once you have a grid, can use the Bezier tool with snapping enabled to connect
+nodes ("join the dots") and create quite complex shapes.
+
+Working steps outside the document margins, multiple copies of the drawing
+  caerthe-populace-badge.redrawn.svg is a good example
+
+FIXME: bitmap tracing?
+
+SCA-specific sections follow
+================================================================================
+
+TODO rework the rest of this doc?
 
 Inkscape for lucet fork design
 ================================================================================
 
-Example: https://github.com/swarren/sca-making/blob/master/lucet-forks/lucet-fork.svg
+Example: https://github.com/swarren/sca-making/blob/master/lucet-forks-naalbinding-needles/lucet-fork.svg
 
 Measure all the interesting points on the existing fork.
 
@@ -317,9 +409,6 @@ https://github.com/swarren/sca-devices-badges/blob/master/outlands/populace-badg
 Easy automated experimentation with tweaks to the design.
 See the "n-up"/contact-sheet:
 https://github.com/swarren/sca-devices-badges/blob/master/outlands/populace-badges/unser-hafen-populace-badge/unser-hafen-populace-badge-all.generated.svg
-
-
-
 
 FIXME:
 
