@@ -16,10 +16,10 @@ Run `screenkey` to show keystrokes
 UI:
 - Menu
 - Toolbars:
-  - top: dynamic options
   - left: mouse actions
+  - top: dynamic options, based on left-side selection
   - bottom: color palette
-  - right: all kinds of knobs to twiddle
+  - right: all kinds of knobs to twiddle (F12 hides/shows)
 
 Open a file, scroll and zoom
   /home/swarren/git_wa/files/sca/personal-device/stephen-device-registered-redrawn.svg
@@ -29,8 +29,11 @@ Open a file, scroll and zoom
 Other samples:
   /home/swarren/git_wa/files/sca/flyer/uh-allthing-flyer-front.svg
   https://github.com/swarren/sca-making/blob/master/lucet-forks-naalbinding-needles/lucet-fork.svg
+      /home/swarren/git_wa/sca-making/lucet-forks-naalbinding-needles/lucet-fork.svg
   https://github.com/swarren/sca-devices-badges/blob/master/outlands/land-devices/outlands-device.svg
+      /home/swarren/git_wa/sca-devices-badges/outlands/land-devices/outlands-device.svg
   https://github.com/swarren/sca-devices-badges/blob/master/outlands/populace-badges/caerthe-populace-badge.redrawn.svg
+      /home/swarren/git_wa/sca-devices-badges/outlands/populace-badges/caerthe-populace-badge.redrawn.svg
 
 Draw a line
   Toolbar on left, or keyboard shortcut B (Bezier) or Shift-F6
@@ -41,7 +44,8 @@ Draw a line
     Ctrl: Snap to common angles
   While clicking:
     Drag to make a curve rather than a straight line
-  Cancel tool: s or Escape or F1
+  Cancel drawing: escape
+  Cancel tool selection: s or Escape or F1
     Goes back to select/move/resize tool
 
 Draw a square or circle
@@ -59,7 +63,7 @@ Fill and stroke
     Object menu, Fill and Stroke.
     Ctrl-Shift-F.
   Fill color, Stroke color, Stroke style (width, and much more)
-    Watch out: In older versions of Inkscape: The stroke width is included in object size!
+    Watch out: The stroke width is included in object size!
     "Hairline" width is zero-width, but visible; useful for CAD.
   Selecting colors from palette toolbar
     click: fill
@@ -78,11 +82,15 @@ Select and Transform Objects tool (move, resize, rotate, deform)
     Drag handles to rotate or shear
     Ctrl snaps angles
 
-Object toolbar:
+Object toolbar
   Select object(s) then:
   Set object X/Y/W/H to specific numbers
   Keep aspect ratio toggle
   Scale stroke size toggle and more
+
+Dynamic toolbar
+  select tool: generic w/h/x/y
+  switch to e.g. rect tool shows rect-specific options e.g. corner radius
 
 Advanced selection
   Use Alt-click to cycle through objects on top of each-other; good for complex drawings
@@ -113,7 +121,7 @@ Grouping
 Snapping
   Enable/disable/control via toolbar on top-right
   Points when starting/ending lines
-  Points or edges when moving objects
+  Points, edges, or centers when moving objects
   Very useful for complex drawings or repetitive layouts (grids)
   Highly configurable re: which points snap, and what they snap to
 
@@ -127,6 +135,7 @@ File menu > export
 File menu > save as
   Also saves a copy of the document in various other formats
   Many more formats: DXF, EMF, EPS, HPGL, ...
+  SVG is Inkscape's native format
 
 File menu > import
   Loads another image file, and adds it to the current document
@@ -178,9 +187,8 @@ Combine & Break Apart
   Draw some object
   Some fill, thick stroke
   Path > Stroke to path
-  Now multiple objects (grouped):
-    1 for the stroke, with 2 sub paths; 1 per side of the stroke
-    1 for the fill, with 1 sub path; the original shape outline
+  Now multiple sub-paths in the one object:
+    1 per side of the stroke
   Delete fill
     Ctrl-Shift-K break apart - now 2 objects each with 1 path
     Ctrl-K       combine     - now 1 object with 2 paths
@@ -203,6 +211,7 @@ Align/distribute for sub-dividing
   Select all 3 lines
   Alignment > Distribute horizontally with even horizontal gaps 
   Can divide in half, into 3, into n
+    Dividing in two/half can be done with snapping too, depending on shape
   Can repeat vertically
   Can even work with angled lines...
 
@@ -223,6 +232,7 @@ Inkscape for lucet fork design
 ================================================================================
 
 Example: https://github.com/swarren/sca-making/blob/master/lucet-forks-naalbinding-needles/lucet-fork.svg
+    /home/swarren/git_wa/sca-making//lucet-forks-naalbinding-needles/lucet-fork.svg
 
 Measure all the interesting points on the existing fork.
 
